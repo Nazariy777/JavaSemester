@@ -3,27 +3,34 @@ package info.trebl.training.lab1.Taylor;
 /**
  * Created by kibernetuk.com on 26.10.2015.
  */
-public class TaylorCos {
-    public static void main(String[] args){
-        int i;
-        double x = Math.PI / 6;
-        double sum1 = 0;
-        double sum2 = 0;
-        long fact = 1;
-        double nominator = 1;
-        for (i = 1; i < 20; i++);
-        {
-            fact = fact * 2 * i * (2 * i +1);
-            nominator = nominator * x * x;
-            if (i % 2 == 0){
-                sum2 = sum2 + nominator / fact;
-            } else {
-                sum1 = sum1 + nominator / fact;
+public class TaylorCos{
+
+    public static void main(String[] args) {
+
+        double precision = 0.0001;
+
+        double x = Math.PI / 4;
+        double sum = 1;
+
+        double prevChiselnik = 1;
+        double prevZnaminnik = 2;
+
+        for (int n = 1; ; n++){
+
+            prevChiselnik = prevChiselnik * x * x;
+            prevZnaminnik = prevZnaminnik * (2 * n - 1) * (2 * n);
+            double dodanok = prevChiselnik / prevZnaminnik;
+            if (Math.abs(dodanok) <= precision){
+                break;
             }
-            double result = 1 + sum1 - sum2;
-            System.out.println(result);
+
+            if (n % 2 == 0) {
+                sum = sum + dodanok;
+            } else {
+                sum = sum - dodanok;
+            }
         }
 
-
+        System.out.println(sum);
     }
 }
